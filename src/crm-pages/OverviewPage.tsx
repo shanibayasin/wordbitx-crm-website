@@ -148,7 +148,7 @@ export const OverviewPage: React.FC<{ previewMode?: boolean }> = ({ previewMode 
   const wonPct = Math.round((wonDeals.length / totalProspectsCount) * 100);
 
   return (
-    <div className="overview-page space-y-3 animate-fade-in">
+    <div className={`overview-page${previewMode ? ' overview-page-preview' : ''} space-y-3 animate-fade-in`}>
       {/* Top Header & Fast Action Toolbar */}
       <div className="overview-heading-row flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>

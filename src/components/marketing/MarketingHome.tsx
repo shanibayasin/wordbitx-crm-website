@@ -4,21 +4,33 @@ import {
   ArrowRight,
   BarChart3,
   BriefcaseBusiness,
+  CalendarDays,
   Check,
   CheckCircle2,
+  ChevronDown,
   CircleDollarSign,
+  Clock3,
   ClipboardCheck,
+  Code2,
   FileText,
   Headphones,
   LayoutDashboard,
+  Link2,
+  ListFilter,
   LockKeyhole,
+  Mail,
   Menu,
   MessageSquareText,
   PhoneCall,
+  Search,
+  Share2,
   ShieldCheck,
   Sparkles,
+  TrendingUp,
   Users,
   UserRoundPlus,
+  ArrowDownRight,
+  Zap,
   X,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -28,6 +40,7 @@ import { MarketingDashboardPreview } from './MarketingDashboardPreview';
 const dashboardUrl = '/dashboard/overview';
 
 export const marketingNavigation = [
+  { label: 'Home', href: '/#top' },
   { label: 'Product', href: '/#product' },
   { label: 'Solutions', href: '/#solutions' },
   { label: 'Integrations', href: '/#integrations' },
@@ -98,13 +111,15 @@ const features = [
   },
 ];
 
-const workflow = [
-  ['01', 'Capture a lead', 'Bring a prospect into the workspace.'],
-  ['02', 'Qualify the opportunity', 'Record fit, context and follow-up.'],
-  ['03', 'Manage the deal', 'Keep stage and ownership in view.'],
-  ['04', 'Create a quote or order', 'Carry the proposal into the next step.'],
-  ['05', 'Track payment', 'Follow invoice and payment status.'],
-  ['06', 'Review performance', 'Use reports to see the demo data clearly.'],
+const integrationProviders = [
+  { name: 'Twilio', description: 'Call, SMS and voice features for your team.', icon: PhoneCall, style: 'twilio' },
+  { name: 'Vonage', description: 'Cloud communications and messaging.', icon: Zap, style: 'vonage' },
+  { name: 'Gmail', description: 'Sync emails and keep your conversations organized.', icon: Mail, style: 'gmail' },
+  { name: 'Outlook', description: 'Manage your inbox and contacts seamlessly.', icon: Mail, style: 'outlook' },
+  { name: 'SIP / PBX', description: 'Advanced telephony for your business.', icon: PhoneCall, style: 'sip' },
+  { name: 'WhatsApp', description: 'Chat, support and notifications in one place.', icon: MessageSquareText, style: 'whatsapp' },
+  { name: 'SMTP', description: 'Reliable email delivery and tracking.', icon: Mail, style: 'smtp' },
+  { name: 'Webhooks', description: 'Real-time data exchange with external systems.', icon: Share2, style: 'webhooks' },
 ];
 
 const pricingPlans = [
@@ -180,7 +195,14 @@ function MarketingHome() {
           <BrandMark />
           <nav className={`marketing-nav${menuOpen ? ' is-open' : ''}`} aria-label="Main navigation">
             {marketingNavigation.map((item) => (
-              <Link key={item.label} href={item.href} onClick={() => setMenuOpen(false)}>{item.label}</Link>
+              <Link
+                key={item.label}
+                href={item.href}
+                className={item.label === 'Home' ? 'is-active' : undefined}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
             ))}
             <div className="mobile-nav-actions">
               <Link href="/sign-in" onClick={() => setMenuOpen(false)}>Sign in</Link>
@@ -224,9 +246,10 @@ function MarketingHome() {
               </Link>
             </div>
             <div className="hero-trust">
-              <span><CheckCircle2 size={15} /> Sales &amp; service workspace</span>
-              <span><CheckCircle2 size={15} /> Flexible team workflows</span>
-              <span><CheckCircle2 size={15} /> Demo data included</span>
+              <span><PhoneCall size={15} /> Sales &amp; customer management</span>
+              <span><Headphones size={15} /> Call center productivity</span>
+              <span><Sparkles size={15} /> Automation &amp; workflow</span>
+              <span><BarChart3 size={15} /> Reports &amp; analytics</span>
             </div>
             <p className="hero-footnote">The live CRM preview uses sample data. Authentication and server-enforced permissions are still in development.</p>
           </div>
@@ -251,101 +274,202 @@ function MarketingHome() {
         </div>
       </section>
 
-      <section className="features-section section-container" id="product">
-        <div className="section-heading">
-          <span className="eyebrow">THE WORD BITX WORKSPACE</span>
-          <h2>Everything your team needs,<br /><span>in one workspace.</span></h2>
-          <p>Connected modules make day-to-day customer operations easier to follow. Explore them in the demo workspace.</p>
-        </div>
-        <div className="feature-grid">
-          {features.map(({ icon: Icon, title, description, href }) => (
-            <Link className="feature-card" href={href} key={title}>
-              <span className="feature-icon"><Icon size={18} strokeWidth={1.8} /></span>
-              <h3>{title}</h3>
-              <p>{description}</p>
-              <span className="feature-link">Explore module <ArrowRight size={14} /></span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="workflow-section" aria-labelledby="workflow-heading">
-        <div className="section-container">
-          <div className="section-heading section-heading-left">
-            <span className="eyebrow">A CLEARER WAY TO WORK</span>
-            <h2 id="workflow-heading">From first hello to<br /><span>the next opportunity.</span></h2>
-            <p>Follow the customer journey without losing sight of the work between each milestone.</p>
+      <section className="features-section" id="product" aria-labelledby="features-heading">
+        <div className="features-inner">
+          <div className="feature-decoration feature-decoration-right" aria-hidden="true">
+            <span className="feature-decoration-badge"><Zap size={17} fill="currentColor" /><span><strong>Work Smarter</strong><small>Grow Faster</small></span></span>
+            <ArrowDownRight size={29} strokeWidth={1.2} />
           </div>
-          <ol className="workflow-grid">
-            {workflow.map(([number, title, description], index) => (
-              <li className="workflow-step" key={number}>
-                <span className="workflow-number">{number}</span>
-                {index < workflow.length - 1 && <span className="workflow-connector" aria-hidden="true"><ArrowRight size={14} /></span>}
+          <div className="section-heading">
+            <span className="eyebrow">THE WORD BITX WORKSPACE</span>
+            <h2 id="features-heading">Everything your team needs,<br /><span>in one workspace.</span></h2>
+            <p>Connected modules make day-to-day customer operations easier to follow.<br className="feature-heading-break" /> Explore them in the demo workspace.</p>
+          </div>
+          <div className="feature-grid">
+            {features.map(({ icon: Icon, title, description, href }) => (
+              <Link className="feature-card" href={href} key={title}>
+                <span className="feature-icon"><Icon size={19} strokeWidth={1.8} /></span>
                 <h3>{title}</h3>
                 <p>{description}</p>
-              </li>
+                <span className="feature-link">Explore module <ArrowRight size={14} /></span>
+              </Link>
             ))}
-          </ol>
+          </div>
         </div>
       </section>
 
-      <section className="showcase-section section-container">
-        <div className="showcase-intro">
-          <span className="eyebrow">MADE FOR THE DETAILS</span>
-          <h2>See the whole picture.<br /><span>Stay close to the work.</span></h2>
-          <p>Move from a high-level pipeline view into the records, tasks and reporting that keep the team aligned.</p>
-          <Link className="text-link" href={dashboardUrl}>Explore the workspace <ArrowRight size={15} /></Link>
-        </div>
-        <div className="showcase-cards">
-          <Link className="showcase-card showcase-pipeline-card" href="/modules/deals">
-            <div className="showcase-card-header"><span className="showcase-mini-icon"><BriefcaseBusiness size={16} /></span><span className="showcase-demo-tag">DEMO DATA</span></div>
-            <h3>Pipeline at a glance</h3>
-            <p>Stages keep opportunities moving forward.</p>
-            <div className="showcase-stage-list">
-              {[
-                ['Discovery', '6'],
-                ['Qualified', '4'],
-                ['Proposal', '3'],
-                ['Negotiation', '2'],
-              ].map(([stage, count], index) => (
-                <div className="showcase-stage" key={stage}>
-                  <span className={`stage-dot stage-dot-${index}`} />
-                  <span>{stage}</span><strong>{count}</strong>
+      <section className="operations-section" aria-label="Connected CRM operations">
+        <div className="operations-inner section-container">
+          <article className="operations-row operations-sales">
+            <div className="operations-copy">
+              <span className="operations-eyebrow"><i>01</i> SALES PIPELINE</span>
+              <h2>Make revenue<br />movement <span>visible.</span></h2>
+              <p>From a visual pipeline to closed business. Track every opportunity, understand weighted value, and keep each next step accountable.</p>
+              <ul>
+                <li><CheckCircle2 size={14} /> Track deals at every stage</li>
+                <li><CheckCircle2 size={14} /> Forecast revenue with confidence</li>
+                <li><CheckCircle2 size={14} /> Keep next steps visible</li>
+              </ul>
+              <Link className="operations-link" href="/modules/deals">Explore sales pipeline <ArrowRight size={14} /></Link>
+            </div>
+            <div className="operations-preview pipeline-preview" aria-label="Illustrative sales pipeline dashboard">
+              <div className="operations-preview-heading">
+                <span className="operations-preview-title"><BriefcaseBusiness size={15} /> Sales Pipeline</span>
+                <span className="operations-view-link">View all <ArrowRight size={11} /></span>
+              </div>
+              <div className="pipeline-stage-tabs">
+                {[
+                  ['Lead', '28'],
+                  ['Contacted', '18'],
+                  ['Proposal', '12'],
+                  ['Negotiation', '8'],
+                  ['Closed', '24'],
+                ].map(([stage, count], index) => (
+                  <span className={index === 4 ? 'is-selected' : ''} key={stage}>{stage}<b>{count}</b></span>
+                ))}
+              </div>
+              <div className="operations-table pipeline-table">
+                <div className="operations-table-head"><span>Deal</span><span>Value</span><span>Stage</span><span>Probability</span></div>
+                {[
+                  ['AM', 'Acme Co.', 'Website Redesign', '$12,000', 'Proposal', '75%'],
+                  ['BS', 'Bright Solutions', 'CRM Integration', '$8,500', 'Negotiation', '60%'],
+                  ['SL', 'Summit Ltd', 'Marketing Platform', '$24,000', 'Qualified', '40%'],
+                  ['NJ', 'NextGen Inc', 'Mobile App', '$5,200', 'Discovery', '20%'],
+                ].map(([initials, company, title, value, stage, probability]) => (
+                  <div className="operations-table-row" key={company}>
+                    <span className="operations-person"><i>{initials}</i><span><strong>{company}</strong><small>{title}</small></span></span>
+                    <strong>{value}</strong>
+                    <span><em className={`operations-status status-${stage.toLowerCase()}`}>{stage}</em></span>
+                    <span className="operations-probability">{probability}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="pipeline-preview-total"><span><TrendingUp size={13} /> Total revenue</span><strong>$531,173 <small>+12%</small></strong></div>
+            </div>
+          </article>
+
+          <article className="operations-row operations-reverse operations-calls">
+            <div className="operations-copy">
+              <span className="operations-eyebrow"><i>02</i> CALL CENTER DASHBOARD</span>
+              <h2>Give every agent a <span>live operational view.</span></h2>
+              <p>Track queues, agent availability, dispositions, callbacks and missed calls in a dedicated call-center workspace. See team activity and service health at a glance.</p>
+              <ul>
+                <li><CheckCircle2 size={14} /> Live agent status and activity</li>
+                <li><CheckCircle2 size={14} /> Queue and call performance</li>
+                <li><CheckCircle2 size={14} /> Missed calls and callback tracking</li>
+              </ul>
+              <Link className="operations-link" href="/modules/calls">Explore call center <ArrowRight size={14} /></Link>
+            </div>
+            <div className="operations-preview calls-preview" aria-label="Illustrative call center dashboard">
+              <div className="operations-preview-heading">
+                <span className="operations-preview-title"><Headphones size={15} /> Call Center Dashboard</span>
+                <span className="operations-live"><i /> Live</span>
+              </div>
+              <div className="calls-preview-date"><CalendarDays size={12} /> Oct 6, 2025 – Oct 12, 2025 <ChevronDown size={11} /></div>
+              <div className="calls-metric-grid">
+                <div><span><PhoneCall size={13} /> Total Calls</span><strong>156</strong><small>↑ 23%</small></div>
+                <div><span><CheckCircle2 size={13} /> Answered</span><strong>142</strong><small>↑ 18%</small></div>
+                <div><span><X size={13} /> Missed</span><strong>14</strong><small className="is-down">↓ 6%</small></div>
+                <div><span><Clock3 size={13} /> Avg. Wait Time</span><strong>00:48</strong><small>↓ 32%</small></div>
+              </div>
+              <div className="calls-analytics-grid">
+                <div className="calls-chart-panel">
+                  <strong>Call Volume</strong>
+                  <div className="calls-chart">
+                    <div className="calls-chart-y"><span>40</span><span>30</span><span>20</span><span>10</span><span>0</span></div>
+                    <div className="calls-chart-plot" role="img" aria-label="Call volume trend across the week">
+                      <svg viewBox="0 0 280 120" preserveAspectRatio="none" aria-hidden="true">
+                        <defs><linearGradient id="calls-chart-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#18b98a" stopOpacity=".28" /><stop offset="100%" stopColor="#18b98a" stopOpacity="0" /></linearGradient></defs>
+                        <path d="M0 89 L40 72 L80 80 L120 58 L160 67 L200 42 L240 61 L280 72 L280 120 L0 120 Z" fill="url(#calls-chart-fill)" />
+                        <polyline points="0,89 40,72 80,80 120,58 160,67 200,42 240,61 280,72" fill="none" stroke="#11a97e" strokeWidth="2.5" vectorEffect="non-scaling-stroke" />
+                        <g fill="white" stroke="#11a97e" strokeWidth="2"><circle cx="0" cy="89" r="3" /><circle cx="40" cy="72" r="3" /><circle cx="80" cy="80" r="3" /><circle cx="120" cy="58" r="3" /><circle cx="160" cy="67" r="3" /><circle cx="200" cy="42" r="3" /><circle cx="240" cy="61" r="3" /><circle cx="280" cy="72" r="3" /></g>
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="calls-chart-days"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
                 </div>
-              ))}
+                <div className="calls-outcomes-panel">
+                  <strong>Call Outcomes</strong>
+                  <div className="calls-outcomes">
+                    <div className="calls-donut"><span><b>142</b><small>Total Calls</small></span></div>
+                    <ul><li><i /> Answered <b>91% (142)</b></li><li><i /> Missed <b>9% (14)</b></li><li><i /> Voicemail <b>4% (6)</b></li><li><i /> Callback <b>2% (4)</b></li></ul>
+                  </div>
+                </div>
+              </div>
             </div>
-          </Link>
-          <Link className="showcase-card showcase-record-card" href="/modules/leads">
-            <div className="showcase-card-header"><span className="showcase-mini-icon"><UserRoundPlus size={16} /></span><span className="showcase-demo-tag">DEMO DATA</span></div>
-            <h3>Customer context, connected</h3>
-            <p>Keep prospect and account details close to the conversation.</p>
-            <div className="record-preview">
-              <span className="record-avatar">AR</span>
-              <span><strong>Account record</strong><small>Contact · activity · notes</small></span>
-              <ArrowRight size={15} />
+          </article>
+
+          <article className="operations-row operations-leads">
+            <div className="operations-copy">
+              <span className="operations-eyebrow"><i>03</i> LEAD MANAGEMENT</span>
+              <h2>Turn every inquiry into an owned <span>next step.</span></h2>
+              <p>Score, assign and manage leads with intelligent workflows. Keep your team focused with clear ownership and timely follow-ups.</p>
+              <ul>
+                <li><CheckCircle2 size={14} /> Capture and score leads automatically</li>
+                <li><CheckCircle2 size={14} /> Assign to the right team member</li>
+                <li><CheckCircle2 size={14} /> Track progress and follow-ups</li>
+              </ul>
+              <Link className="operations-link" href="/modules/leads">Explore lead management <ArrowRight size={14} /></Link>
             </div>
-            <div className="record-tags"><span>Lead</span><span>Customer</span><span>Activity</span></div>
-          </Link>
-          <Link className="showcase-card showcase-task-card" href="/modules/tasks">
-            <div className="showcase-card-header"><span className="showcase-mini-icon"><ClipboardCheck size={16} /></span><span className="showcase-demo-tag">DEMO DATA</span></div>
-            <h3>Follow-ups with an owner</h3>
-            <p>Turn a conversation into a clear next action.</p>
-            <div className="showcase-task-list">
-              <span><i><Check size={10} /></i>Share the proposal <small>Today</small></span>
-              <span><i />Schedule a check-in <small>Tomorrow</small></span>
+            <div className="operations-preview leads-preview" aria-label="Illustrative lead management table">
+              <div className="operations-preview-heading">
+                <span className="operations-preview-title"><UserRoundPlus size={15} /> Leads</span>
+                <span className="leads-preview-controls"><span><Search size={11} /> Search leads...</span><span><ListFilter size={11} /> Filter</span></span>
+              </div>
+              <div className="leads-filter-tabs"><span className="is-selected">All (248)</span><span>New (56)</span><span>Contacted (78)</span><span>Qualified (42)</span><span>Proposal (28)</span><span>Closed (44)</span></div>
+              <div className="operations-table leads-table">
+                <div className="operations-table-head"><span>Name</span><span>Email</span><span>Phone</span><span>Source</span><span>Status</span></div>
+                {[
+                  ['AH', 'Ayesha Khan', 'ayesha@gmail.com', '+92 300 1234567', 'Website', 'New'],
+                  ['BA', 'Bilal Ahmed', 'bilal@gmail.com', '+92 301 2345678', 'Facebook', 'Contacted'],
+                  ['SM', 'Sara Malik', 'sara@gmail.com', '+92 302 3456789', 'Referral', 'Qualified'],
+                  ['UR', 'Usman Raza', 'usman@gmail.com', '+92 303 4567890', 'LinkedIn', 'Proposal'],
+                  ['HS', 'Hassan Shah', 'hassan@gmail.com', '+92 304 5678901', 'Website', 'New'],
+                ].map(([initials, name, email, phone, source, status]) => (
+                  <div className="operations-table-row" key={email}>
+                    <span className="operations-person"><i>{initials}</i><span><strong>{name}</strong></span></span>
+                    <span>{email}</span><span>{phone}</span><span>{source}</span><span><em className={`operations-status status-${status.toLowerCase()}`}>{status}</em></span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </Link>
-          <Link className="showcase-card showcase-insight-card" href="/modules/reports">
-            <div className="showcase-card-header"><span className="showcase-mini-icon"><BarChart3 size={16} /></span><span className="showcase-demo-tag">DEMO DATA</span></div>
-            <h3>Insights that feel connected</h3>
-            <p>Review pipeline and activity in a single reporting view.</p>
-            <div className="insight-bars" aria-label="Illustrative monthly activity chart">
-              {[34, 50, 42, 67, 58, 82, 72, 95, 76, 100, 87, 112].map((height, index) => (
-                <i key={index} style={{ height }} />
-              ))}
+          </article>
+
+          <article className="operations-row operations-reverse operations-support">
+            <div className="operations-copy">
+              <span className="operations-eyebrow"><i>04</i> CUSTOMER SUPPORT</span>
+              <h2>A complete history, not a <span>disconnected ticket.</span></h2>
+              <p>Search tickets, view customer context, chat, call and project contact details — all in one place. Solve issues faster with conversation history, attachments and status tracking.</p>
+              <ul>
+                <li><CheckCircle2 size={14} /> Full conversation history</li>
+                <li><CheckCircle2 size={14} /> Attachments and notes</li>
+                <li><CheckCircle2 size={14} /> Status and priority tracking</li>
+              </ul>
+              <Link className="operations-link" href="/modules/tickets">Explore customer support <ArrowRight size={14} /></Link>
             </div>
-            <div className="insight-axis"><span>MONTHLY ACTIVITY</span><span>ILLUSTRATIVE</span></div>
-          </Link>
+            <div className="operations-preview support-preview" aria-label="Illustrative recent customer support tickets">
+              <div className="operations-preview-heading">
+                <span className="operations-preview-title"><Headphones size={15} /> Recent Support Tickets</span>
+                <span className="operations-view-link">View all <ArrowRight size={11} /></span>
+              </div>
+              <div className="operations-table support-table">
+                <div className="operations-table-head"><span>#</span><span>Subject</span><span>Customer</span><span>Priority</span><span>Status</span><span>Created</span></div>
+                {[
+                  ['#TK-1001', 'Login issue on mobile app', 'Ahmed Raza', 'High', 'Open', '2h ago'],
+                  ['#TK-1002', 'Billing question', 'Global Tech', 'Medium', 'In Progress', '4h ago'],
+                  ['#TK-1003', 'Feature request', 'Sarah Khan', 'Low', 'Resolved', '1d ago'],
+                  ['#TK-1004', 'Website not working', 'Zain Ali', 'High', 'Open', '2d ago'],
+                ].map(([number, subject, customer, priority, status, created]) => (
+                  <div className="operations-table-row" key={number}>
+                    <span className="support-ticket-id">{number}</span><strong>{subject}</strong><span>{customer}</span>
+                    <span><em className={`operations-status status-${priority.toLowerCase()}`}>{priority}</em></span>
+                    <span><em className={`operations-status status-${status.toLowerCase().replace(' ', '-')}`}>{status}</em></span>
+                    <span>{created}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -381,14 +505,38 @@ function MarketingHome() {
         </div>
       </section>
 
-      <section className="integrations-section section-container" id="integrations">
-        <div className="integrations-mark"><MessageSquareText size={20} /></div>
-        <div className="integrations-copy">
-          <span className="eyebrow">INTEGRATIONS</span>
-          <h2>Designed to grow<br /><span>with your toolkit.</span></h2>
-          <p>Connected third-party integrations are not part of this migration phase. We’ll introduce them here once they’re implemented and verified.</p>
+      <section className="integrations-section" id="integrations">
+        <div className="integration-note integration-note-left" aria-hidden="true">
+          <span className="integration-note-icon"><Link2 size={16} /></span>
+          <span><strong>More integrations</strong><small>Coming soon...</small></span>
+          <span className="integration-note-dot" />
         </div>
-        <div className="integrations-status"><span className="status-dot" /> Integration support is in development</div>
+        <div className="integration-note integration-note-right" aria-hidden="true">
+          <span className="integration-note-icon"><Code2 size={18} /></span>
+          <span><strong>Provider setup</strong><small>Required to connect</small></span>
+        </div>
+        <div className="section-container integrations-inner">
+          <div className="integration-heading">
+            <span className="integration-badge"><Link2 size={15} /> INTEGRATION READY</span>
+            <h2>Connect the systems your<br /><span>operation relies on.</span></h2>
+            <p>WordbitX CRM is designed for telephony, email and workflow integrations. Provider examples below are illustrative; services are not connected until configured.</p>
+          </div>
+          <div className="integration-provider-grid">
+            {integrationProviders.map(({ name, description, icon: Icon, style }) => (
+              <article className={`integration-provider integration-provider-${style}`} key={name}>
+                <span className="integration-provider-icon"><Icon size={25} strokeWidth={2.2} /></span>
+                <span className="integration-provider-copy">
+                  <strong>{name}</strong>
+                  <small>{description}</small>
+                </span>
+                <span className="integration-provider-arrow" aria-hidden="true"><ArrowRight size={15} /></span>
+              </article>
+            ))}
+          </div>
+          <Link className="integration-architecture-link" href="#contact">
+            <Link2 size={15} /> Discuss integration options <ArrowRight size={15} />
+          </Link>
+        </div>
       </section>
 
       <section className="pricing-section" id="pricing">

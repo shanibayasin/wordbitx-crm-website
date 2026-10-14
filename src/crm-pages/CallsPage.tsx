@@ -142,7 +142,7 @@ export const CallsPage: React.FC = () => {
           </div>
 
           {/* Call list */}
-          <div className="divide-y divide-slate-800/60 overflow-y-auto max-h-[550px]">
+          <div className="divide-y divide-slate-800/60 overflow-y-auto max-h-137.5">
             {filteredCalls.map((call) => {
               const isSelected = currentCall.id === call.id;
               return (
@@ -245,7 +245,7 @@ export const CallsPage: React.FC = () => {
           </div>
 
           {/* Tab Content */}
-          <div className="p-5 flex-1 overflow-y-auto max-h-[550px] text-xs">
+          <div className="p-5 flex-1 overflow-y-auto max-h-137.5 text-xs">
             {activeTab === 'summary' && (
               <div className="space-y-5">
                 {/* Acoustic Sentiment Index */}
