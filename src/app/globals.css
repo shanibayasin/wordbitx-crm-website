@@ -164,8 +164,8 @@
 
 .marketing-header-inner {
   display: flex;
-  width: min(1320px, calc(100% - 72px));
-  min-height: 64px;
+  width: min(1440px, calc(100% - 72px));
+  min-height: 68px;
   align-items: center;
   justify-content: space-between;
   gap: 26px;
@@ -322,7 +322,7 @@
 .hero-section {
   position: relative;
   isolation: isolate;
-  padding: 64px 0 73px;
+  padding: 48px 0 58px;
   background:
     linear-gradient(112deg, rgba(250, 247, 238, .98) 0%, rgba(248, 249, 243, .97) 47%, rgba(226, 241, 232, .94) 100%),
     repeating-linear-gradient(135deg, transparent 0 98px, rgba(22, 110, 81, .025) 99px 100px);
@@ -330,10 +330,10 @@
 
 .hero-container {
   display: grid;
-  width: min(1320px, calc(100% - 72px));
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
+  width: min(1480px, calc(100% - 72px));
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
   align-items: center;
-  gap: 42px;
+  gap: 38px;
 }
 
 .hero-copy {
@@ -363,7 +363,7 @@
 .hero-copy h1 {
   margin: 26px 0 19px;
   color: #11251f;
-  font-size: 56px;
+  font-size: 62px;
   font-weight: 800;
   letter-spacing: 0;
   line-height: 1.045;
@@ -1894,7 +1894,7 @@
   z-index: 1;
   overflow: hidden;
   border: 1px solid #dce9e3;
-  border-radius: 17px;
+  border-radius: 21px;
   background: #fff;
   box-shadow: 0 26px 70px rgba(16, 48, 39, .13), 0 4px 14px rgba(16, 48, 39, .05);
 }
@@ -1965,7 +1965,7 @@
 }
 
 .real-dashboard-viewport {
-  height: 420px;
+  height: 470px;
   overflow: hidden;
   background: #f4f9f6;
   padding: 18px 12px 12px;
@@ -1973,7 +1973,7 @@
 
 .real-dashboard-content {
   width: 900px;
-  transform: scale(.59);
+  transform: scale(.82);
   transform-origin: top left;
   pointer-events: none;
   user-select: none;
@@ -2793,11 +2793,20 @@
 
 @media (max-width: 1050px) {
   .hero-container {
-    gap: 38px;
+    gap: 26px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, .95fr);
   }
 
   .hero-copy h1 {
-    font-size: 49px;
+    font-size: 46px;
+  }
+
+  .real-dashboard-content {
+    transform: scale(.5);
+  }
+
+  .real-dashboard-viewport {
+    height: 350px;
   }
 
   .capability-inner {
@@ -2818,6 +2827,31 @@
 
   .security-layout {
     gap: 45px;
+  }
+}
+
+@media (max-width: 900px) and (min-width: 781px) {
+  .hero-container {
+    width: min(calc(100% - 64px), 720px);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .hero-copy h1 {
+    max-width: 700px;
+    font-size: 54px;
+  }
+
+  .hero-visual {
+    padding: 0 0 8px;
+  }
+
+  .real-dashboard-content {
+    transform: scale(.72);
+  }
+
+  .real-dashboard-viewport {
+    height: 420px;
   }
 }
 
@@ -3832,6 +3866,92 @@
   border-color: #b5ded2;
   background: #e2f4ed;
   color: #0a705a;
+}
+
+.dashboard-shell {
+  --dashboard-ink: #14231f;
+  --dashboard-green: #0d8068;
+  --dashboard-forest: #0d4b3c;
+  --dashboard-mint: #eaf7f1;
+  --dashboard-border: #e3ece7;
+}
+
+.dashboard-content-area h1,
+.dashboard-content-area h2,
+.dashboard-content-area h3 {
+  color: var(--dashboard-ink);
+  letter-spacing: 0;
+}
+
+.dashboard-content-area [class*="rounded-xl"][class*="bg-slate-900"] {
+  border-color: var(--dashboard-border);
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(20, 54, 42, .045);
+}
+
+.dashboard-content-area [class*="border-slate-800"] {
+  border-color: var(--dashboard-border);
+}
+
+.dashboard-shell [class~="bg-indigo-600"],
+.dashboard-shell [class~="bg-indigo-500"] {
+  background-color: var(--dashboard-green);
+}
+
+.dashboard-shell [class~="hover:bg-indigo-500"]:hover,
+.dashboard-shell [class~="hover:bg-indigo-600"]:hover {
+  background-color: #096b57;
+}
+
+.dashboard-shell [class~="bg-indigo-950/15"],
+.dashboard-shell [class~="bg-indigo-950/20"],
+.dashboard-shell [class~="bg-indigo-950/50"],
+.dashboard-shell [class~="bg-indigo-950/60"] {
+  background-color: var(--dashboard-mint);
+}
+
+.dashboard-shell [class~="text-indigo-400"],
+.dashboard-shell [class~="text-indigo-300"],
+.dashboard-shell [class~="text-indigo-200"] {
+  color: var(--dashboard-green);
+}
+
+.dashboard-shell [class~="hover:text-indigo-300"]:hover,
+.dashboard-shell [class~="hover:text-indigo-400"]:hover {
+  color: var(--dashboard-forest);
+}
+
+.dashboard-shell [class~="border-indigo-500/20"],
+.dashboard-shell [class~="border-indigo-500/30"],
+.dashboard-shell [class~="border-indigo-800"] {
+  border-color: #c7e5d9;
+}
+
+.dashboard-shell [class~="focus:border-indigo-500"]:focus,
+.dashboard-shell [class~="focus:border-indigo-400"]:focus {
+  border-color: #35a98a;
+  --tw-ring-color: rgba(17, 181, 141, .2);
+}
+
+.dashboard-shell input,
+.dashboard-shell select,
+.dashboard-shell textarea {
+  accent-color: var(--dashboard-green);
+}
+
+.dashboard-shell main input:focus,
+.dashboard-shell main select:focus,
+.dashboard-shell main textarea:focus {
+  border-color: #35a98a;
+  box-shadow: 0 0 0 3px rgba(17, 181, 141, .12);
+  outline: none;
+}
+
+.dashboard-shell main button:focus-visible,
+.dashboard-shell main a:focus-visible {
+  outline: 2px solid #18a987;
+  outline-offset: 2px;
 }
 
 .overview-page {

@@ -213,6 +213,16 @@ test('all 12 dashboard section URLs render their CRM page', async () => {
     assert.equal(response?.status(), 200, `${route} should return HTTP 200`);
     assert.equal(new URL(page.url()).pathname, `/dashboard/${route}`);
     await page.locator('main h1').first().waitFor({ state: 'visible' });
+    const theme = await page.evaluate(() => {
+      const heading = document.querySelector('.dashboard-content-area h1');
+      const surface = document.querySelector('.dashboard-content-area [class*="rounded-xl"][class*="bg-slate-900"]');
+      return {
+        headingColor: heading ? getComputedStyle(heading).color : null,
+        surfaceColor: surface ? getComputedStyle(surface).backgroundColor : null,
+      };
+    });
+    assert.equal(theme.headingColor, 'rgb(20, 35, 31)', `${route} heading should use the shared dashboard ink`);
+    assert.equal(theme.surfaceColor, 'rgb(255, 255, 255)', `${route} panels should use the shared light surface`);
   }
 
   assert.deepEqual(pageErrors, [], 'section routes should not throw client errors');
